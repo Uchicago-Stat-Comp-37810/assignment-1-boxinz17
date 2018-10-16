@@ -7,7 +7,9 @@ output:
     df_print: paged
 ---
 
-# section 4.1.1, exercises 2
+Note: In this homework, all the exercises are from second edition, except for section 4.4.1 exercise 1, 2. Sorry for the trouble this may cause to you.
+
+# section 4.1.1, exercises 2 (second edition)
 
 ## (a)
 ```{r}
@@ -49,7 +51,7 @@ Solve this equation and abandon the negative solution, we have
 $$x=(1+\sqrt{5})/2$$
 
  
-# section 4.1.1, exercises 3
+# section 4.1.1, exercises 3 (second edition)
 
 ## (a)
 ```{r}
@@ -86,7 +88,7 @@ for (j in 1:15) answer <- c(answer, (7 * answer[j]) %% 31)
 answer
 ```
 
-# section 4.1.2, exercises 4
+# section 4.1.2, exercises 4 (second edition)
 
 ```{r}
 InterestEarnedByGIC <- function(P, n){
@@ -100,7 +102,7 @@ InterestEarnedByGIC <- function(P, n){
 }
 ```
 
-# section 4.1.2, exercises 5
+# section 4.1.2, exercises 5 (second edition)
 
 ```{r}
 MonthlyMortgagePayment <- function(P, n, open){
@@ -118,7 +120,7 @@ MonthlyMortgagePayment <- function(P, n, open){
 }
 ```
 
-# section 4.1.3, exercises 2
+# section 4.1.3, exercises 2 (second edition)
 
 ```{r}
 Fibonacci <- numeric(3)
@@ -132,7 +134,7 @@ Fibonacci <- Fibonacci[1:(length(Fibonacci) - 1)]
 Fibonacci
 ```
 
-# section 4.1.3, exercises 4
+# section 4.1.3, exercises 4 (second edition)
 
 ```{r}
 i1 <- 0.006
@@ -169,7 +171,7 @@ i2
 
 When you try different starting guess, the answer has little change
 
-# section 4.1.3, exercises 5
+# section 4.1.3, exercises 5 (second edition)
 
 ```{r}
 i1 <- 0.006
@@ -213,7 +215,7 @@ i2
 k
 ```
 
-# section 4.1.5, exercise 2
+# section 4.1.5, exercise 2 (second edition)
 
 ## (b)
 Suppose that there is a m, which is not prime. By the algorithm, m must can be represented as:
@@ -247,7 +249,7 @@ Eratosthenes <- function(n) {
 }
 ```
 
-# section 4.2.1, exercises 2
+# section 4.2.1, exercises 2 (second edition)
 
 ## (a)
 ```{r}
@@ -261,7 +263,7 @@ compound.interest <- function(P, i.r, n){
 compound.interest(1000, 0.01, 30)
 ```
 
-# section 4.2.1, exercises 3
+# section 4.2.1, exercises 3 (second edition)
 ```{r}
 TestFunction <- function(x){
   return (x + 1)
@@ -298,49 +300,161 @@ CalculateZeroPoint <- function(f){
 CalculateZeroPoint(TestFunction)
 ```
 
-# section 4.4.3, exercises 1
+# section 4.4.1 exercise 1 (note: this is from the first edition)
+
 ```{r}
-factorial(10)
-factorial(50)
-factorial(100)
-factorial(1000)
+# 1: Use a merge sort to sort a vector
+mergesort <- function (x, decreasing=FALSE) {
+  # Check for a vector that doesn¡¯t need sorting
+  len <-length(x)
+  if (len < 2) {
+    result <- x
+    return (result)
+  }
+  # 2: Check if the decreasing is true
+  if (decreasing==TRUE){
+    # 3a: sort x into result
+    # 3.1a: split x in half
+    y <- x[1:(len / 2)]
+    z <- x[(len / 2 + 1):len]
+    # 3.2a: sort y and z
+    y <- mergesort(y, TRUE)
+    z <- mergesort(z, TRUE)
+    # 3.3a: merge y and z into a sorted result
+    result <- c()
+    # 3.3.1a: while (some are left in both piles)
+    # 3.3.2a: put the biggest first element on the end
+    # 3.3.3a: remove it from y or z
+    while (min(length(y), length(z)) > 0) {
+      if (y[1] > z[1]) {
+        result <- c(result, y[1])
+        y <- y[-1]
+      } else {
+        result <- c(result, z[1])
+        z <- z[-1]
+      }
+    }
+    # 3.3.4a: put the leftovers onto the end of result
+    if (length(y) > 0) {
+      result <- c(result, y)
+    } else {
+      result <- c(result, z)
+    }
+    return(result)
+  } else {
+    # 3b: sort x into result
+    # 3.1b: split x in half
+    y <- x[1:(len / 2)]
+    z <- x[(len / 2 + 1):len]
+    # 3.2b sort y and z
+    y <- mergesort(y, FALSE)
+    z <- mergesort(z, FALSE)
+    # 3.3b merge y and z into a sorted result
+    result <- c()
+    # 3.3.1b while (some are left in both piles)
+    # 3.3.2b put the biggest first element on the end
+    # 3.3.3b: remove it from y or z
+    while (min(length(y), length(z)) > 0) {
+      if (y[1] < z[1]) {
+        result <- c(result, y[1])
+        y <- y[-1]
+      } else {
+        result <- c(result, z[1])
+        z <- z[-1]
+      }
+    }
+    # 3.3.4b: put the leftovers onto the end of result
+    if (length(y) > 0) {
+      result <- c(result, y)
+    } else {
+      result <- c(result, z)
+    }
+    return(result)
+  }
+}
+
+vector.test <- c(2, 3, 1, 4, 5, 6, 8, 9)
+mergesort(vector.test)
+mergesort(vector.test, TRUE)
 ```
 
-# section 4.4.3, exercises 2
+
+# section 4.4.1 exercise 2 (note: this is from the first edition)
+
 ## (a)
 ```{r}
-BinoCoefficient <- function(n, m){
-  return (factorial(n) / (factorial(n - m) * factorial(m)))
+# 1. Use Newton's method to solve the equations
+NewtonMethod <- function(f, g, x0, y0){
+  
+  x1 <- x0
+  x.origin <- x0
+  x2 <- x1 + 1
+  y1 <- y0
+  y.origin <- y0
+  y2 <- y1 + 1
+  
+  # Set threshold
+  thresh <- 1e-7
+  step.len <- 1e-14
+  
+  # 2: Keep iteration until the function value is close enough
+  while (min(abs(f(x2, y2) - f(x.origin, y.origin)), abs(g(x2, y2) - g(x.origin, y.origin))) > thresh){
+    
+    # 3: Calculate the gradients and other numbers
+    
+    ## 3.1: Calculate the numerical differential
+    gradient.fx.x1.y1 = (f(x1 + step.len, y1) - f(x1, y1)) / step.len
+    gradient.fy.x1.y1 = (f(x1, y1 + step.len) - f(x1, y1)) / step.len
+    gradient.gx.x1.y1 = (g(x1 + step.len, y1) - g(x1, y1)) / step.len
+    gradient.gy.x1.y1 = (g(x1, y1 + step.len) - g(x1, y1)) / step.len
+    
+    ## 3.2 Calculate other numbers
+    f1 <- f(x1, y1)
+    g1 <- g(x1, y1)
+    d <- gradient.fx.x1.y1 * gradient.gy.x1.y1 - gradient.fy.x1.y1 * gradient.gx.x1.y1
+    
+    # 4: Compute next step
+    x2 <- x1 - (gradient.gy.x1.y1 * f1 - gradient.fy.x1.y1 * g1) / d
+    y2 <- y1 - (gradient.fx.x1.y1 * g1 - gradient.gx.x1.y1 * f1) / d
+    
+    # 5: Replace x1, y1 with x2, y2, and save the original x1
+    #    y1 to compute the function value
+    x.origin <- x1
+    y.origin <- y1
+  
+    x1 <- x2
+    y1 <- y2
+  }
+  
+  # Return the answer
+  return (c(x2, y2))
 }
+
 ```
 
 ## (b)
 ```{r}
-BinoCoefficient(4, 2)
-BinoCoefficient(50, 20)
-BinoCoefficient(5000, 2000)
-```
-
-## (c)
-```{r}
-ImprovedBinoCoefficient <- function(n, m){
-  if(n > 10 && (n - m > 5)){
-    # By Stirling's approximation, we can improve the calculation
-    return (((n / (2 * pi * (n - m) * m)) ^ (1/2)) * exp(-(n - m) * log(1 - (m / n)) - m * log(m / n)))
-  } else {
-    return (factorial(n) / (factorial(n - m) * factorial(m)))
-  }
+test.fucntion1 <- function(x, y){
+  return (x + y)
 }
+
+test.function2 <- function(x, y){
+  return (x ^ 2 + 2 * (y ^ 2) - 2)
+}
+
+NewtonMethod(test.fucntion1, test.function2, 1, -1)
+NewtonMethod(test.fucntion1, test.function2, -1, 1)
 ```
 
-## (d)
+The analytical solutions are
 ```{r}
-ImprovedBinoCoefficient(4, 2)
-ImprovedBinoCoefficient(50, 20)
-ImprovedBinoCoefficient(5000, 2000)
+c(sqrt(2/3), -sqrt(2/3))
+c(-sqrt(2/3), sqrt(2/3))
 ```
 
-# Chapter 4 exercises 1
+
+
+# Chapter 4 exercises 1 (second edition)
 ```{r}
 results <- numeric(3000000)
 x <- 123
@@ -407,7 +521,7 @@ m.sub <- m[(m[, 1] == x), ]
 plot(m.sub[, 2], m.sub[, 3], main="x = 0.9", xlab="column2", ylab="column3")
 ```
 
-# Chapter 4 exercises 2
+# Chapter 4 exercises 2 (second edition)
 ```{r}
 directpoly <- function(x, v){
   n <- length(v)
@@ -421,7 +535,7 @@ directpoly <- function(x, v){
 directpoly(2, c(1, 2, 3))
 ```
 
-# Chapter 4 exercises 3
+# Chapter 4 exercises 3 (second edition)
 ```{r}
 hornerpoly <- function(y, c){
   result <- numeric(length(y))
